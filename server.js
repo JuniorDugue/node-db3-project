@@ -5,6 +5,6 @@ const SchemeRouter = require('./schemes/scheme-router.js');
 const server = express();
 
 server.use(express.json());
-server.use('/api/schemes', SchemeRouter);
+server.use('/api/schemes', SchemeRouter); //port 5009
 
 module.exports = server;

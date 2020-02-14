@@ -72,12 +72,12 @@ Write helpers methods in `./schemes/scheme-model.js` that match the following sp
 
 The following endpoints are available to test the functionality of the model methods.
 
--   `GET /api/schemes/` - gets master list of schemes (without steps)
--   `GET /api/schemes/:id` - gets a single scheme
--   `GET /api/schemes/:id/steps` - gets all steps for a given scheme, ordered correctly
--   `POST /api/schemes` - adds a new scheme
--   `PUT /api/schemes:id` - updates a given scheme
--   `DELETE /api/schemes/:id` - removes a given scheme and all associated steps
+-   `GET /api/schemes/` - gets master list of schemes (without steps) [x]
+-   `GET /api/schemes/:id` - gets a single scheme [x]
+-   `GET /api/schemes/:id/steps` - gets all steps for a given scheme, ordered correctly [x]
+-   `POST /api/schemes` - adds a new scheme [x]
+-   `PUT /api/schemes:id` - updates a given scheme [x]
+-   `DELETE /api/schemes/:id` - removes a given scheme and all associated steps [x]
 
 ## Stretch Problems
 

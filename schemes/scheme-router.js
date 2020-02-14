@@ -1,11 +1,12 @@
 const express = require('express');
 
-const Schemes = require('./scheme-model.js');
+const Users = require('./scheme-model.js');
 
 const router = express.Router();
 
+//GET WORKING
 router.get('/', (req, res) => {
-  Schemes.find()
+  Users.find()
   .then(schemes => {
     res.json(schemes);
   })
@@ -14,10 +15,11 @@ router.get('/', (req, res) => {
   });
 });
 
+//GET BY ID WORKING
 router.get('/:id', (req, res) => {
   const { id } = req.params;
 
-  Schemes.findById(id)
+  Users.findById(id)
   .then(scheme => {
     if (scheme) {
       res.json(scheme);
@@ -30,10 +32,11 @@ router.get('/:id', (req, res) => {
   });
 });
 
+
+// //WORKING
 router.get('/:id/steps', (req, res) => {
   const { id } = req.params;
-
-  Schemes.findSteps(id)
+  Users.findSteps(id)
   .then(steps => {
     if (steps.length) {
       res.json(steps);
@@ -49,7 +52,7 @@ router.get('/:id/steps', (req, res) => {
 router.post('/', (req, res) => {
   const schemeData = req.body;
 
-  Schemes.add(schemeData)
+  Users.add(schemeData)
   .then(scheme => {
     res.status(201).json(scheme);
   })
@@ -58,34 +61,31 @@ router.post('/', (req, res) => {
   });
 });
 
-router.post('/:id/steps', (req, res) => {
-  const stepData = req.body;
-  const { id } = req.params; 
-
-  Schemes.findById(id)
-  .then(scheme => {
-    if (scheme) {
-      Schemes.addStep(stepData, id)
-      .then(step => {
-        res.status(201).json(step);
+// POST is Working
+router.post('/', async (req, res) => {
+  try {
+    const body = req.body 
+    const test = await Schemes.add(body)
+    if(test){
+      res.status(200).json(test)
+    }else{
+      res.status(400).json({
+        message: "Content is missing"
       })
-    } else {
-      res.status(404).json({ message: 'Could not find scheme with given id.' })
     }
-  })
-  .catch (err => {
-    res.status(500).json({ message: 'Failed to create new step' });
-  });
+  } catch(err){
+    res.status(500).json({ message: "The server is not responding"})
+  }
 });
 
 router.put('/:id', (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
-  Schemes.findById(id)
+  Users.findById(id)
   .then(scheme => {
     if (scheme) {
-      Schemes.update(changes, id)
+      Users.update(changes, id)
       .then(updatedScheme => {
         res.json(updatedScheme);
       });
@@ -101,7 +101,7 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
 
-  Schemes.remove(id)
+  Users.remove(id)
   .then(deleted => {
     if (deleted) {
       res.json({ removed: deleted });
